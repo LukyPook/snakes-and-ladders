@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String btnID = "button_" + i + j;
                 int resID = getResources().getIdentifier(btnID,"id", getPackageName());
                 buttons[i][j] = findViewById(resID);
-                buttons[i][j].setOnClickListener(this);
+         //       buttons[i][j].setOnClickListener(this);
             }
         }
         //Swap first and last values in the 2D board to mimic snakes and ladders
@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        //reset button
-        Button btnReset = findViewById(R.id.button_reset);
-        btnReset.setOnClickListener(new View.OnClickListener() {
+        //roll button
+        Button btnRoll = findViewById(R.id.button_roll);
+        btnRoll.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                //do later
