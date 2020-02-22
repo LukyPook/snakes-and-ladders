@@ -8,12 +8,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button[][] buttons = new Button[10][10];
 
     private TextView textViewPlayer1;
     private TextView textViewPlayer2;
+
+    private int indexP1x;
+    private int indexP1y;
+    private int indexP2x;
+    private int indexP2y;
+
+    private ArrayList<BoardIndex> boardIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttons[j][buttons[j].length - i - 1] = temp;
             }
         }
-        
+        //call convert method
+        assign1Dto2D();
+
         //roll button
         Button btnRoll = findViewById(R.id.button_roll);
         btnRoll.setOnClickListener(new View.OnClickListener() {
@@ -70,25 +81,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                int dice1 = (int) (Math.random() * (6-1)) + 1;
                int dice2 = (int) (Math.random() * (6-1)) + 1;
                boolean P1;
-               
-               //set visibility test
-//               buttons[0][0].setVisibility(View.VISIBLE);
-//               buttons[0][1].setVisibility(View.VISIBLE);
-//               buttons[1][7].setVisibility(View.VISIBLE);
-//               buttons[2][5].setVisibility(View.VISIBLE);
-//               buttons[3][8].setVisibility(View.VISIBLE);
-//               buttons[5][7].setVisibility(View.VISIBLE);
-//               buttons[4][7].setVisibility(View.VISIBLE);
-//               buttons[8][3].setVisibility(View.VISIBLE);
-//               buttons[9][7].setVisibility(View.VISIBLE);
 
-               
                P1 = SNL.getTurn();
                if(P1) {
-                   textViewPlayer1.setText(SNL.play(dice1, dice2));
+                   buttons
+                   String msg = (SNL.play(dice1, dice2));
+                   textViewPlayer1.setText(msg);
                }
                else {
-                   textViewPlayer2.setText(SNL.play(dice1, dice2));
+                   String msg = (SNL.play(dice1, dice2));
+                   textViewPlayer2.setText(msg);
                }
            }
         });
@@ -100,6 +102,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //change up later
         if(!((Button)v).getText().toString().equals("")) {
             return;
+        }
+    }
+    public void assign1Dto2D() {
+        boardIndex = new ArrayList<>();
+        for(int i = 9; i >= 0; i--) {
+            if(!(i%2==0)) {
+                for(int j = 9; j >= 0; j--) {
+                    boardIndex.add(new BoardIndex(i,j));
+                }
+            }
+            else {
+                for (int j = 0; j < 10; j++) {
+                    boardIndex.add(new BoardIndex(i,j));
+                }
+            }
         }
     }
 }
